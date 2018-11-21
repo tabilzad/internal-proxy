@@ -22,6 +22,7 @@ class ProxyService(
             //RestTemplate().exchange(it, HttpMethod.POST, HttpEntity(body).apply {
               //  headers.accept = listOf(MediaType.TEXT_PLAIN)
             //}, String::class.java)
+
             exchage.uri(it).body(body).post()
         } ?: "This Service Name is unknown")
     }
