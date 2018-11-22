@@ -13,16 +13,12 @@ class ProxyService(
 ) {
     fun forwardOrMockPost(exchage: ProxyExchange<Any>, serviceName: String, body: String): String {
         return cache[serviceName]?.let {
-            println("Forwarding to $it")
-            //RestTemplate().exchange(it, HttpMethod.POST, HttpEntity(body).apply {
-            //  headers.accept = listOf(MediaType.TEXT_PLAIN)
-            //}, String::class.java)
             when(it.mocked){
                 true->it.mock
                 false->exchage.uri(it.realUrl).body(body).post().toString()
             }
 
-        } ?: "This Service Name is unknown"
+        } ?: "This Service Name is unknown: $serviceName"
     }
 
     fun forwardOrMockGet(
@@ -35,7 +31,7 @@ class ProxyService(
                 false->exchage.uri(it.realUrl).get().toString()
             }
 
-        } ?: "This Service Name is unknown"
+        } ?: "This Service Name is unknown: $serviceName"
     }
 
     fun mock(serviceName: String, body: String) {

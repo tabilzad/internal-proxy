@@ -8,12 +8,20 @@ import java.util.concurrent.ConcurrentHashMap
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+
+
 
 @Controller
 class FormsController(
     val router: ProxyService,
     val cache: ConcurrentHashMap<String, EntryCreationDto>
 ) {
+
+    @RequestMapping("/")
+    fun home(): String {
+        return "redirect:/all"
+    }
 
     @GetMapping("/all")
     fun show(model: Model): String {
