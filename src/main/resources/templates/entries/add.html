@@ -26,6 +26,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th> isMocked </th>
                             <th> Service </th>
                             <th> Route</th>
                             <th> MockResponse</th>
@@ -33,6 +34,7 @@
                         </thead>
                         <tbody>
                         <tr th:object="${form}">
+                            <td><input type="checkbox" th:field="*{mocked}" required/></td>
                             <td><input th:placeholder="ServiceName " th:field="*{name}" required/></td>
                             <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required/></td>
                             <td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>
