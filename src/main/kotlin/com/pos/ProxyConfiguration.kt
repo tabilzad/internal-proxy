@@ -1,5 +1,6 @@
 package com.pos
 
+import com.pos.domain.EntryCreationDto
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
@@ -10,16 +11,9 @@ import java.util.concurrent.ConcurrentHashMap
 class ProxyConfiguration {
 
     @Bean("cache")
-    fun cache(): ConcurrentHashMap<String, String> = ConcurrentHashMap<String, String>().apply {
-      //  put("prime", "this is a mocked response")
-    }
-
-
-    @Bean("routes")
-    fun routes(): ConcurrentHashMap<String, String> {
-        return ConcurrentHashMap<String, String>().apply {
-            put("prime", "http://www.thomas-bayer.com/axis2/services/BLZService")
-        }
+    fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
+        put("Prime", EntryCreationDto("Prime", "google.com", "<RESPONSE>", false))
+        put("OtherService", EntryCreationDto("OtherService", "google.com/2", "<RESPONSE>2", false))
     }
 
 

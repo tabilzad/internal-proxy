@@ -1,38 +1,37 @@
 package com.pos
 
+import com.pos.domain.EntryCreationDto
 import org.springframework.cloud.gateway.mvc.ProxyExchange
-import org.springframework.web.bind.annotation.*
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.*
 import java.util.concurrent.ConcurrentHashMap
 
-
 @RestController
+@RequestMapping("/proxy")
 class ProxyController(
     val router: ProxyService
 ) {
-
-
     @GetMapping("/call/{name}")
     @Throws(Exception::class)
     fun proxyGet(proxy: ProxyExchange<Any>, @PathVariable name: String): ResponseEntity<*> {
-        return ResponseEntity.ok(router.forwardOrMockGet(proxy, name))
+        return ResponseEntity.ok(router.forwardOrMockGet(proxy, name.toLowerCase()))
     }
 
+    @GetMapping("/show")
+    fun show(): ConcurrentHashMap<String, EntryCreationDto> = router.show()
 
     @PostMapping("/call/{name}")
     @Throws(Exception::class)
     fun proxPost(proxy: ProxyExchange<Any>, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
-        return ResponseEntity.ok(router.forwardOrMockPost(proxy, name, body))
+        return ResponseEntity.ok(router.forwardOrMockPost(proxy, name.toLowerCase(), body))
     }
-
 
     @PostMapping("/configure/{serviceName}")
     fun configure(
         @PathVariable serviceName: String,
         @RequestBody url: String
     ): String {
-        router.configure(serviceName, url)
+        router.configure(serviceName.toLowerCase(), url)
         return "Routed $serviceName to $url"
     }
 
@@ -41,7 +40,7 @@ class ProxyController(
         @PathVariable serviceName: String,
         @RequestBody body: String
     ): String {
-        router.mock(serviceName, body)
+        router.mock(serviceName.toLowerCase(), body)
         return "Mocked $serviceName"
     }
 
@@ -49,10 +48,5 @@ class ProxyController(
     fun mock(): String {
         router.clearAll()
         return "Cleared"
-    }
-
-    @GetMapping("/show")
-    fun show(): Pair<ConcurrentHashMap<String, String>, ConcurrentHashMap<String, String>> {
-        return router.show()
     }
 }

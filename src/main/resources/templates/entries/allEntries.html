@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mocked Services</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Mocked Services </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> isMocked </th>
+                    <th> ServiceName</th>
+                    <th> Route</th>
+                    <th> MockResponse</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${entries.empty}">
+                    <td colspan="2"> No Services Available, go add some!</td>
+                </tr>
+                <tr th:each="entry : ${entries}">
+                    <td><span th:text="${entries[__${entry.key}__].mocked}"> ServiceName </span></td>
+                    <td><span th:text="${entry.key}"> ServiceName </span></td>
+                    <td><span th:text="${entries[__${entry.key}__].realUrl}"> Route </span></td>
+                    <td><span th:text="${entries[__${entry.key}__].mock}"> MockResponse </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success" href="#" th:href="@{/create}"> Add Books </a>
+            <a class="btn btn-primary" href="#" th:href="@{/edit}"
+               th:classappend="${entries.empty} ? 'disabled' : ''"> Edit Books </a>
+            <a class="btn btn-warning" href="#" th:href="@{/clear}"> Clear All </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

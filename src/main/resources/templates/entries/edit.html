@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Entries</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Edit Entries </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-info" href="#" th:href="@{/all}"> Back to All Books </a>
+            <form action="#" class="form-horizontal"
+                  th:action="@{/replace}"
+                  th:object="${wrapper}"
+                  method="post">
+                <fieldset>
+					<span class="pull-right">
+						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
+						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+					</span>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th> Service Name</th>
+                            <th> Route</th>
+                            <th> MockResponse</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="currentClient, stat : *{temp}">
+                            <td>
+                                <input type="checkbox" th:field="*{temp[__${stat.index}__].mocked}" />  </td>
+                            <td> <input th:field="*{temp[__${stat.index}__].name}" />  </td>
+                            <td>  <input th:field="*{temp[__${stat.index}__].realUrl}" />  </td>
+                            <td>  <input th:field="*{temp[__${stat.index}__].mock}" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
