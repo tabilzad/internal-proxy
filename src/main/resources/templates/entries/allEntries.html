@@ -25,8 +25,18 @@
                 <tr th:if="${entries.empty}">
                     <td colspan="2"> No Services Available, go add some!</td>
                 </tr>
+
                 <tr th:each="entry : ${entries}">
-                    <td><span th:text="${entries[__${entry.key}__].mocked}"> ServiceName </span></td>
+
+                    <td >
+                        <span th:if="${entries[__${entry.key}__].mocked}" style="color:green">
+                            true
+                        </span>
+                        <span th:if="${!entries[__${entry.key}__].mocked}" style="color:red">
+                            false
+                        </span>
+                    </td>
+
                     <td><span th:text="${entry.key}"> ServiceName </span></td>
                     <td><span th:text="${entries[__${entry.key}__].realUrl}"> Route </span></td>
                     <td><span th:text="${entries[__${entry.key}__].mock}"> MockResponse </span></td>
