@@ -11,23 +11,30 @@ import java.util.concurrent.ConcurrentHashMap
 class ProxyService(
     @Qualifier("cache") val cache: ConcurrentHashMap<String, EntryCreationDto>
 ) {
-    fun forwardOrMockPost(exchage: ProxyExchange<Any>, serviceName: String, body: String): Any {
+    fun forwardOrMockPost(exchage: ProxyExchange<Any>, serviceName: String, body: String): String {
         return cache[serviceName]?.let {
             println("Forwarding to $it")
             //RestTemplate().exchange(it, HttpMethod.POST, HttpEntity(body).apply {
             //  headers.accept = listOf(MediaType.TEXT_PLAIN)
             //}, String::class.java)
+            when(it.mocked){
+                true->it.mock
+                false->exchage.uri(it.realUrl).body(body).post().toString()
+            }
 
-            exchage.uri(it.realUrl).body(body).post()
         } ?: "This Service Name is unknown"
     }
 
     fun forwardOrMockGet(
         exchage: ProxyExchange<Any>,
         serviceName: String
-    ): Any {
+    ): String {
         return cache[serviceName]?.let {
-            exchage.uri(it.realUrl).get()
+            when(it.mocked){
+                true->it.mock
+                false->exchage.uri(it.realUrl).get().toString()
+            }
+
         } ?: "This Service Name is unknown"
     }
 

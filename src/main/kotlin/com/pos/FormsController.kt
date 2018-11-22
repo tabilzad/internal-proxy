@@ -31,7 +31,7 @@ class FormsController(
 
     @PostMapping("/save")
     fun saveBooks(@ModelAttribute form: EntryCreationDto, model: Model): String {
-        cache.putAll(mapOf(form.name to form))
+        cache.putAll(mapOf(form.name.toLowerCase() to form))
         model.addAttribute("entries", router.show())
         return "redirect:/all"
     }
@@ -40,7 +40,7 @@ class FormsController(
     @GetMapping("/edit")
     fun showEditForm(model: Model): String {
         val tempDto = TempDto(cache.map { (key, value) ->
-            EntryCreationDto(name = key, realUrl = value.realUrl, mock = value.mock, mocked = value.mocked)
+            EntryCreationDto(name = key.toLowerCase(), realUrl = value.realUrl, mock = value.mock, mocked = value.mocked)
         })
         model.addAttribute("wrapper", tempDto)
 
