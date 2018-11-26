@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Service(s)</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body style="background-color:#212529">
+
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <ul class="navbar-nav">
         <li class="nav-item active">
@@ -30,13 +32,14 @@
                   th:action="@{/save}"
                   th:object="${form}"
                   method="post">
-                <fieldset>
+                <fieldset style="display: inline-block;">
 					<span style="">
                              <h1 style="display: inline-block; color:white"> Add Service </h1>
 						    <input type="submit" id="submitButton" class="btn btn-success text-right" th:value="Save"
-                                   style="float: right;">
+                                   style="float: right; margin:5px;">
+
 						    <input type="reset" id="resetButton" class="btn btn-danger text-right" th:value="Reset"
-                                   style="float: right;"/>
+                                   style="float: right; margin:5px;"/>
 					</span>
                     <table class="table table-dark">
                         <thead>
@@ -53,7 +56,41 @@
                             <td><input th:placeholder="ServiceName " th:field="*{name}" required/></td>
                             <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required pattern="https?://.+"/>
                             </td>
-                            <td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>
+                            <!--<td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>-->
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal">Enter Response
+                                </button>
+                            </td>
+                            <div class="modal fade right" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-full-height modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="exampleModalLabel">New message</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="col-form-label">Mock
+                                                        Response:</label>
+                                                    <!--<textarea class="form-control" id="message-text"></textarea>-->
+                                                    <textarea type="text" th:field="*{mock}" class="form-control" id="message-text"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                                            <!--<button type="button" class="btn btn-primary">Submit</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </tr>
                         </tbody>
                     </table>
@@ -62,5 +99,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

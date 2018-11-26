@@ -18,11 +18,11 @@
             <a class="navbar-brand" href="#">Internal Proxy</a>
         </li>
         <span>
-        <a class="btn btn-success" href="#" th:href="@{/create}"> Add Entries </a>
+        <a class="btn btn-success" href="#" th:href="@{/create}" style="margin-right:5px;"> Add Entries </a>
              </span>
         <span> <a class="btn btn-primary" href="#" th:href="@{/edit}"
-                  th:classappend="${entries.empty} ? 'disabled' : ''"> Edit Entries </a> </span>
-        <span> <a class="btn btn-warning" href="#" th:href="@{/clear}"> Clear All </a> </span>
+                  th:classappend="${entries.empty} ? 'disabled' : ''" style="margin-right:5px;"> Edit Entries </a> </span>
+        <span> <a class="btn btn-warning" href="#" th:href="@{/clear}" style="margin-right :5px;"> Clear All </a> </span>
     </ul>
 </nav>
 <div class="page-header">
