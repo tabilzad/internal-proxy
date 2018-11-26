@@ -6,7 +6,7 @@
 </head>
 <script type="text/javascript">
 </script>
-<body>
+<body style="background-color:#f2f2f2">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -38,7 +38,7 @@
                         <tr th:object="${form}">
                             <td><input type="checkbox" th:field="*{mocked}"/></td>
                             <td><input th:placeholder="ServiceName " th:field="*{name}" required/></td>
-                            <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required/></td>
+                            <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required pattern="https?://.+"/></td>
                             <td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>
                         </tr>
                         </tbody>

@@ -3,7 +3,7 @@
     <title>Mocked Services</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
-<body>
+<body style="background-color:#f2f2f2" >
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -14,7 +14,6 @@
         <div class="col-md-6">
             <table class="table">
                 <thead>
-                <tr>
                     <th> isMocked </th>
                     <th> ServiceName</th>
                     <th> Route</th>
@@ -27,7 +26,6 @@
                 </tr>
 
                 <tr th:each="entry : ${entries}">
-
                     <td >
                         <span th:if="${entries[__${entry.key}__].mocked}" style="color:green">
                             true
@@ -53,4 +51,6 @@
     </div>
 </div>
 </body>
+
+
 </html>

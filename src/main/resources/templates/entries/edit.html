@@ -3,7 +3,7 @@
     <title>Edit Entries</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
-<body>
+<body style="background-color:#f2f2f2" >
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -34,10 +34,10 @@
                         <tbody>
                         <tr th:each="currentClient, stat : *{temp}">
                             <td>
-                                <input type="checkbox" th:field="*{temp[__${stat.index}__].mocked}" />  </td>
-                            <td> <input th:field="*{temp[__${stat.index}__].name}" />  </td>
-                            <td>  <input th:field="*{temp[__${stat.index}__].realUrl}" />  </td>
-                            <td>  <input th:field="*{temp[__${stat.index}__].mock}" /></td>
+                                <input type="checkbox" th:field="*{temp[__${stat.index}__].mocked}"  />  </td>
+                            <td> <input th:field="*{temp[__${stat.index}__].name}" required/>  </td>
+                            <td>  <input th:field="*{temp[__${stat.index}__].realUrl}" required pattern="https?://.+"/>  </td>
+                            <td>  <input th:field="*{temp[__${stat.index}__].mock}" required /></td>
                         </tr>
                         </tbody>
                     </table>
