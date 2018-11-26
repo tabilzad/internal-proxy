@@ -21,9 +21,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1 style="color:white"> Add Service </h1>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -33,15 +31,18 @@
                   th:object="${form}"
                   method="post">
                 <fieldset>
-					<span class="pull-right">
-						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+					<span style="">
+                             <h1 style="display: inline-block; color:white"> Add Service </h1>
+						    <input type="submit" id="submitButton" class="btn btn-success text-right" th:value="Save"
+                                   style="float: right;">
+						    <input type="reset" id="resetButton" class="btn btn-danger text-right" th:value="Reset"
+                                   style="float: right;"/>
 					</span>
                     <table class="table table-dark">
                         <thead>
                         <tr>
-                            <th> isMocked </th>
-                            <th> Service </th>
+                            <th> isMocked</th>
+                            <th> Service</th>
                             <th> Route</th>
                             <th> MockResponse</th>
                         </tr>
@@ -50,7 +51,8 @@
                         <tr th:object="${form}">
                             <td><input type="checkbox" th:field="*{mocked}"/></td>
                             <td><input th:placeholder="ServiceName " th:field="*{name}" required/></td>
-                            <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required pattern="https?://.+"/></td>
+                            <td><input th:placeholder="RealUrl " th:field="*{realUrl}" required pattern="https?://.+"/>
+                            </td>
                             <td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>
                         </tr>
                         </tbody>
