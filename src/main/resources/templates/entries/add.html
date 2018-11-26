@@ -22,7 +22,7 @@
 </style>
 <body style="background-color:#ededed">
 
-<nav style="margin-bottom: 35px;" class="navbar navbar-expand-sm bg-light navbar-light">
+<nav style="margin-bottom: 35px;" class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!--<ul class="navbar-nav nav-justified">-->
             <!--<li class="nav-item active">-->
             <h4 style="margin-bottom:-4px" class="navbar-brand">INTERNAL PROXY</h4>
@@ -42,13 +42,13 @@
                   th:object="${form}"
                   method="post">
                 <fieldset style="display: inline-block;">
-					<span style="">
-                             <h1 style="display: inline-block;"> Add Service </h1>
-						    <input type="submit" id="submitButton" class="btn btn-success text-right" th:value="Save"
-                                   style="float: right; margin:5px;">
+					<span>
+                        <h1 style="display: inline-block;"> Add Service </h1>
+						    <input type="submit" id="submitButton" class="btn btn-blue-grey" th:value="Save"
+                                   style="float: right;">
 
-						    <input type="reset" id="resetButton" class="btn btn-danger text-right" th:value="Reset"
-                                   style="float: right; margin:5px;"/>
+						    <input type="reset" id="resetButton" class="btn btn-cyan" th:value="Reset"
+                                   style="float: right;">
 					</span>
                     <table class="table table-striped">
                         <thead>
@@ -68,7 +68,7 @@
                             <!--<td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>-->
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal">Enter Response
+                                        data-target="#exampleModal">Put
                                 </button>
                             </td>
                             <div class="modal right fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -76,7 +76,7 @@
                                 <div class="modal-dialog modal-full-height modal-right" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title w-100" id="exampleModalLabel">New message</h4>
+                                            <h4 class="modal-title w-100" id="exampleModalLabel">Mock Response</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -84,9 +84,7 @@
                                         <div class="modal-body">
                                             <form>
                                                 <div class="form-group">
-                                                    <label for="message-text" class="col-form-label">Mock
-                                                        Response:</label>
-                                                    <!--<textarea class="form-control" id="message-text"></textarea>-->
+                                                    <label for="message-text" class="col-form-label">Please enter the text to be returned as the service response</label>
                                                     <textarea type="text" th:field="*{mock}" class="form-control"
                                                               id="message-text"></textarea>
                                                 </div>
@@ -110,8 +108,5 @@
         </div>
     </div>
 </div>
-
-
 </body>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>
 </html>
