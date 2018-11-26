@@ -1,21 +1,33 @@
-
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Service(s)</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
-<script type="text/javascript">
-</script>
-<body style="background-color:#f2f2f2">
+<body style="background-color:#212529">
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="navbar-brand" href="#">Internal Proxy</a>
+        </li>
+        <a class="btn btn-info" href="#" th:href="@{/all}"> Back to All Services </a>
+    </ul>
+</nav>
+<div class="page-header">
+    <h1>|</h1>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1> Add Service </h1>
+            <h1 style="color:white"> Add Service </h1>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-info" href="#" th:href="@{/all}"> Back to List All Services </a>
+
             <form action="#" class="form-horizontal"
                   th:action="@{/save}"
                   th:object="${form}"
@@ -25,7 +37,7 @@
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
 						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
 					</span>
-                    <table class="table">
+                    <table class="table table-dark">
                         <thead>
                         <tr>
                             <th> isMocked </th>
