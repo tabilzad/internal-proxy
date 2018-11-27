@@ -1,2 +1,13 @@
 server:
   port: 8090
+
+application:
+  title: ${name}
+  version: ${version}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics
+

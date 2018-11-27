@@ -25,6 +25,8 @@
     <a class="btn btn-primary" href="#" th:href="@{/edit}" th:classappend="${entries.empty} ? 'disabled' : ''"> Edit
         Entries </a>
     <a class="btn btn-warning" href="#" th:href="@{/clear}"> Clear All </a>
+
+    <th:block th:text="${appVersion}"></th:block>
     <!--</ul>-->
 </nav>
 <div class="container" style="margin-left: 40px">

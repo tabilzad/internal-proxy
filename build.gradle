@@ -1,3 +1,5 @@
+import org.ajoberstar.grgit.Grgit
+
 buildscript {
     ext {
         kotlinVersion = '1.3.10'
@@ -11,6 +13,11 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
+
+}
+
+plugins {
+    id "org.ajoberstar.grgit" version "3.0.0"
 }
 
 apply plugin: 'kotlin'
@@ -38,10 +45,39 @@ compileTestKotlin {
 repositories {
     mavenCentral()
 }
+springBoot {
+    buildInfo()
+}
+version = "0.2.0" + getVersionNameExtension()
+
+def getVersionNameExtension() {
+    def versionPropsFile = file('version')
+    def versionBuild
+
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+        versionProps['VERSION_BUILD'] = versionBuild.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        try {
+            def git = Grgit.open()
+            def versionNameSuffix = "-${git.head().getAbbreviatedId(8)}"
+            git.close()
+            return "$versionBuild$versionNameSuffix"
+        } catch (ignored) {
+            return ""
+        }
+    }else return ""
+}
 
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
+
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.0.RELEASE'
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6"
     compile group: 'org.springframework.cloud', name: 'spring-cloud-gateway-mvc', version: '2.0.2.RELEASE'
