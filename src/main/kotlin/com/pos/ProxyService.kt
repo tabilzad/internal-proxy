@@ -3,6 +3,8 @@ package com.pos
 import com.pos.domain.EntryCreationDto
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cloud.gateway.mvc.ProxyExchange
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
@@ -11,27 +13,25 @@ import java.util.concurrent.ConcurrentHashMap
 class ProxyService(
     @Qualifier("cache") val cache: ConcurrentHashMap<String, EntryCreationDto>
 ) {
-    fun forwardOrMockPost(exchage: ProxyExchange<Any>, serviceName: String, body: String): String {
+    fun forwardOrMockPost(exchage: ProxyExchange<Any>, serviceName: String, body: String): ResponseEntity<*> {
         return cache[serviceName]?.let {
-            when(it.mocked){
-                true->it.mock
-                false->exchage.uri(it.realUrl).body(body).post().toString()
+            when (it.mocked) {
+                true -> ResponseEntity.status(it.status).body(it.mock)
+                false -> exchage.uri(it.realUrl).body(body).post()
             }
-
-        } ?: "This Service Name is unknown: $serviceName"
+        } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
     }
 
     fun forwardOrMockGet(
         exchage: ProxyExchange<Any>,
         serviceName: String
-    ): String {
+    ): ResponseEntity<*> {
         return cache[serviceName]?.let {
-            when(it.mocked){
-                true->it.mock
-                false->exchage.uri(it.realUrl).get().toString()
+            when (it.mocked) {
+                true -> ResponseEntity.status(it.status).body(it.mock)
+                false -> exchage.uri(it.realUrl).get()
             }
-
-        } ?: "This Service Name is unknown: $serviceName"
+        } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
     }
 
     fun mock(serviceName: String, body: String) {
