@@ -52,18 +52,33 @@
                             <th> isMocked</th>
                             <th> Service</th>
                             <th> Route</th>
+                            <th> Status</th>
                             <th> MockResponse</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:object="${form}">
                             <td>
-                                <input type="checkbox" th:field="*{mocked}">
+                                <!--<label class="bs-switch">-->
+                                <input type="checkbox" th:field="*{mocked}" class="styled">
+                                <!--<span class="slider round"></span>-->
+                                <!--</label>-->
                             </td>
                             <td><input class="form-control form-control-lg" th:placeholder="ServiceName "
-                                       th:field="*{name}" required/></td>
+                                       th:field="*{name}" required pattern="^[a-zA-Z0-9_&-]+$"/></td>
                             <td><input class="form-control form-control-lg" th:placeholder="RealUrl "
                                        th:field="*{realUrl}" required pattern="https?://.+"/>
+                            </td>
+                            <td>
+                                <select class="browser-default custom-select form-control-lg" th:field="*{status}">
+                                    <option th:each="state : ${T(org.springframework.http.HttpStatus).values()}"
+                                            th:value="${{state}}"
+                                            th:text="${state}"
+                                            th:with="s=${T(org.springframework.http.HttpStatus).OK}"
+                                            th:selected="${s}"
+                                    >
+                                    </option>
+                                </select>
                             </td>
                             <!--<td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>-->
                             <td>

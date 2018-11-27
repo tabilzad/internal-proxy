@@ -55,7 +55,8 @@ class FormsController(
                 name = key.friendlyForm(),
                 realUrl = value.realUrl,
                 mock = value.mock,
-                mocked = value.mocked
+                mocked = value.mocked,
+                status = value.status
             )
         })
         model.addAttribute("wrapper", tempDto)

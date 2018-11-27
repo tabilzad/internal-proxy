@@ -41,6 +41,7 @@
                 <th> ServiceName</th>
                 <th> Route</th>
                 <th> MockResponse</th>
+                <th> Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,10 +52,12 @@
                 <tr th:each="entry : ${entries}">
                     <td>
                         <span th:if="${entries[__${entry.key}__].mocked}" style="color:green">
-                            true
+                             <i class="fa fa-cog fa-spin" style="font-size:24px"> </i>
+                            Mocked
                         </span>
                         <span th:if="${!entries[__${entry.key}__].mocked}" style="color:red">
-                            false
+                             <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                            Forwarding
                         </span>
                     </td>
 
@@ -63,6 +66,9 @@
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                 th:data-target="${'#exampleModal' + entry.key}">View</button>
+                    </td>
+                    <td>
+                   <span th:text="${entries[__${entry.key}__].status}"> Status </span>
                     </td>
 
                     <div class="modal right fade" th:id="${'exampleModal' + entry.key}" tabindex="-1" role="dialog"
@@ -79,7 +85,7 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Mock Response:</label>
-                                            <span type="text" th:text="${entries[__${entry.key}__].mock}" class="form-control" id="message-text"></span>
+                                            <textarea readonly rows="40" th:text="${entries[__${entry.key}__].mock}" class="form-control" id="message-text"></textarea>
                                         </div>
                                     </form>
                                 </div>

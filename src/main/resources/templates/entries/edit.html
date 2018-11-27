@@ -50,6 +50,7 @@
                             <th> isMocked</th>
                             <th> Service Name</th>
                             <th> Route</th>
+                            <th> Status</th>
                             <th> MockResponse</th>
                             <th></th>
                         </tr>
@@ -58,8 +59,18 @@
                         <tr th:each="entry, stat : *{temp}">
                             <td>
                                 <input type="checkbox" th:field="*{temp[__${stat.index}__].mocked}"/></td>
-                            <td><input class="form-control form-control-lg" th:field="*{temp[__${stat.index}__].name}" required/></td>
+                            <td><input class="form-control form-control-lg" th:field="*{temp[__${stat.index}__].name}"  required pattern="^[a-zA-Z0-9_&-]+$"/></td>
                             <td><input class="form-control form-control-lg" th:field="*{temp[__${stat.index}__].realUrl}" required pattern="https?://.+"/>
+                            </td>
+                            <td>
+                                <select class="browser-default custom-select form-control-lg" th:field="*{temp[__${stat.index}__].status}">
+                                    <option th:each="state : ${T(org.springframework.http.HttpStatus).values()}"
+                                            th:value="${{state}}"
+                                            th:text="${state}"
+                                            th:selected="*{temp[__${stat.index}__].status}"
+                                    >
+                                    </option>
+                                </select>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -81,7 +92,7 @@
                                                 <div class="form-group">
                                                     <label for="message-text" class="col-form-label">Mock
                                                         Response:</label>
-                                                    <textarea th:field="*{temp[__${stat.index}__].mock}"
+                                                    <textarea rows="40" th:field="*{temp[__${stat.index}__].mock}"
                                                               class="form-control" id="message-text"></textarea>
                                                 </div>
                                         </div>
