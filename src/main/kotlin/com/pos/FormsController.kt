@@ -3,13 +3,9 @@ package com.pos
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
 import java.util.concurrent.ConcurrentHashMap
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
-
+import org.springframework.web.bind.annotation.*
 
 
 @Controller
@@ -38,8 +34,15 @@ class FormsController(
     }
 
     @PostMapping("/save")
-    fun saveBooks(@ModelAttribute form: EntryCreationDto, model: Model): String {
-        cache.putAll(mapOf(form.name.toLowerCase() to form))
+    fun save(@ModelAttribute form: EntryCreationDto, model: Model): String {
+        cache.putAll(mapOf(form.name.friendlyForm() to form))
+        model.addAttribute("entries", router.show())
+        return "redirect:/all"
+    }
+
+    @GetMapping("/delete/{service}")
+    fun delete(@PathVariable service: String, model: Model): String {
+        cache.remove(service)
         model.addAttribute("entries", router.show())
         return "redirect:/all"
     }
@@ -48,7 +51,12 @@ class FormsController(
     @GetMapping("/edit")
     fun showEditForm(model: Model): String {
         val tempDto = TempDto(cache.map { (key, value) ->
-            EntryCreationDto(name = key.toLowerCase(), realUrl = value.realUrl, mock = value.mock, mocked = value.mocked)
+            EntryCreationDto(
+                name = key.friendlyForm(),
+                realUrl = value.realUrl,
+                mock = value.mock,
+                mocked = value.mocked
+            )
         })
         model.addAttribute("wrapper", tempDto)
 
@@ -68,4 +76,6 @@ class FormsController(
         router.clearAll()
         return "redirect:/all"
     }
+
+    fun String.friendlyForm() = this.toLowerCase().replace(" ", "_")
 }

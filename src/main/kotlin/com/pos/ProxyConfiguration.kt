@@ -13,7 +13,7 @@ class ProxyConfiguration {
     @Bean("cache")
     fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
         put("prime", EntryCreationDto("Prime", "http://google.com", "<RESPONSE>1", true))
-        put("OtherService", EntryCreationDto("OtherService", "http://google.com/2", "<RESPONSE>2", false))
+        put("other_service", EntryCreationDto("OtherService", "http://google.com/2", "<RESPONSE>2", false))
     }
 
 
