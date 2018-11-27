@@ -1,2 +1,6 @@
-/.idea/**
-/out/**
+.gradle/
+**/.gradle/
+.DS_Store
+.idea
+build/
+.idea/workspace.xml
