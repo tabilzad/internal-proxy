@@ -33,7 +33,6 @@
     </div>
     <div class="row">
         <div class="col-xl-auto">
-
             <form action="#" class="form-horizontal"
                   th:action="@{/replace}"
                   th:object="${wrapper}"
@@ -52,11 +51,11 @@
                             <th> Service Name</th>
                             <th> Route</th>
                             <th> MockResponse</th>
-                            <th> X</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="currentClient, stat : *{temp}">
+                        <tr th:each="entry, stat : *{temp}">
                             <td>
                                 <input type="checkbox" th:field="*{temp[__${stat.index}__].mocked}"/></td>
                             <td><input class="form-control form-control-lg" th:field="*{temp[__${stat.index}__].name}" required/></td>
@@ -83,7 +82,7 @@
                                                 <div class="form-group">
                                                     <label for="message-text" class="col-form-label">Mock
                                                         Response:</label>
-                                                    <textarea type="text" th:field="*{temp[__${stat.index}__].mock}"
+                                                    <textarea th:field="*{temp[__${stat.index}__].mock}"
                                                               class="form-control" id="message-text"></textarea>
                                                 </div>
                                             </form>

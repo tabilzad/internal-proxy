@@ -44,7 +44,7 @@ class FormsController(
     fun delete(@PathVariable service: String, model: Model): String {
         cache.remove(service)
         model.addAttribute("entries", router.show())
-        return "redirect:/all"
+        return "redirect:/edit"
     }
 
 
