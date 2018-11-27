@@ -66,7 +66,7 @@ class FormsController(
     @PostMapping("/replace")
     fun replace(@ModelAttribute wrapper: TempDto, model: Model): String {
         cache.clear()
-        cache.putAll(mapOf(*wrapper.temp.map { it.name to it }.toTypedArray()))
+        wrapper.temp.forEach { value -> cache[value.name] = value }
         model.addAttribute("wrapper", wrapper)
         return "redirect:/all"
     }
