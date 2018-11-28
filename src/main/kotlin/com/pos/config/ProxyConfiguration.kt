@@ -1,4 +1,4 @@
-package com.pos
+package com.pos.config
 
 import com.pos.domain.EntryCreationDto
 import org.springframework.context.annotation.Bean
@@ -14,6 +14,8 @@ class ProxyConfiguration {
     fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
         put("prime", EntryCreationDto("Prime", "http://google.com", "<RESPONSE>1", true))
         put("other_service", EntryCreationDto("OtherService", "http://google.com/2", "<RESPONSE>2", false))
+        put("other_service2", EntryCreationDto("OtherService2", "http://google.com/2", "<RESPONSE>2", false))
+        put("other_service3", EntryCreationDto("OtherService3", "http://google.com/2", "<RESPONSE>2", false))
     }
 
 
