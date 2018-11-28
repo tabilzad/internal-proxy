@@ -49,6 +49,7 @@
                 <th> Route</th>
                 <th> MockResponse</th>
                 <th> Status</th>
+                <th> ProxyUrl</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -108,6 +109,9 @@
                         </div>
                     </div>
 
+                    <td>
+                        <span th:text="${#strings.replace(#request.requestURL, '/all', '') + '/proxy/call/' + entry.key}"> ProxyUrl </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>

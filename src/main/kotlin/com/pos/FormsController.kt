@@ -51,12 +51,8 @@ class FormsController(
     @GetMapping("/edit")
     fun showEditForm(model: Model): String {
         val tempDto = TempDto(cache.map { (key, value) ->
-            EntryCreationDto(
-                name = key.friendlyForm(),
-                realUrl = value.realUrl,
-                mock = value.mock,
-                mocked = value.mocked,
-                status = value.status
+            value.copy(
+                name = key.friendlyForm()
             )
         })
         model.addAttribute("wrapper", tempDto)
