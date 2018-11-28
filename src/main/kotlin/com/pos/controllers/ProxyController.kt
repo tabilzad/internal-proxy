@@ -1,5 +1,6 @@
-package com.pos
+package com.pos.controllers
 
+import com.pos.ProxyService
 import com.pos.domain.EntryCreationDto
 import org.springframework.cloud.gateway.mvc.ProxyExchange
 import org.springframework.http.ResponseEntity

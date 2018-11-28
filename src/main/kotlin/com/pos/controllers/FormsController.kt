@@ -1,11 +1,18 @@
-package com.pos
+package com.pos.controllers
 
+import com.pos.ProxyService
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
 import org.springframework.ui.Model
 import java.util.concurrent.ConcurrentHashMap
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+
+
+
+
 
 
 @Controller
@@ -73,6 +80,13 @@ class FormsController(
         router.clearAll()
         return "redirect:/all"
     }
+
+    @GetMapping("/login")
+    fun logingError(@RequestParam(value = "error", required = false) error:Boolean, model: Model): String {
+        if(error) model.addAttribute("loginError", true)
+        return "login"
+    }
+
 
     fun String.friendlyForm() = this.toLowerCase().replace(" ", "_")
 }
