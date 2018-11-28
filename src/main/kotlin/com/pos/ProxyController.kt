@@ -14,7 +14,7 @@ class ProxyController(
     @GetMapping("/call/{name}")
     @Throws(Exception::class)
     fun proxyGet(proxy: ProxyExchange<Any>, @PathVariable name: String): ResponseEntity<*> {
-        return ResponseEntity.ok(router.forwardOrMockGet(proxy, name.toLowerCase()))
+        return router.forwardOrMockGet(proxy, name.toLowerCase())
     }
 
     @GetMapping("/show")
@@ -23,7 +23,7 @@ class ProxyController(
     @PostMapping("/call/{name}")
     @Throws(Exception::class)
     fun proxPost(proxy: ProxyExchange<Any>, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
-        return ResponseEntity.ok(router.forwardOrMockPost(proxy, name.toLowerCase(), body))
+        return router.forwardOrMockPost(proxy, name.toLowerCase(), body)
     }
 
     @PostMapping("/configure/{serviceName}")

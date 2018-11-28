@@ -1,6 +1,3 @@
 # internal-proxy
 
-In order to build properly with Intelij - 
-Enable *Delegate IDE build/run actions to Gradle* option 
-in Settings (Preferences) | Build, Execution, Deployment | 
-Build Tools | Gradle | Runner tab.
+To build use `:bootRun` gradle task. Building with Intelij will not run the buildInfo task so versioning will not work.
