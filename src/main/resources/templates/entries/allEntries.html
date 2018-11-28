@@ -18,6 +18,12 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.15/js/mdb.min.js"></script>
 <body style="background-color:#ededed">
 <style>
+table th {
+  font-size: 20px;
+}
+table td {
+  font-size: 19px;
+}
 
 </style>
 <nav style="margin-bottom: 40px;" class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -41,9 +47,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 ">
-            <table class="table table-striped">
-                <thead>
+        <div class="col-md-6 " style="width: 100%">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                 <th> isMocked</th>
                 <th> ServiceName</th>
                 <th> Route</th>
