@@ -75,7 +75,8 @@ def getVersionNameExtension() {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
-
+    compile group: 'org.springframework.integration', name: 'spring-integration-ip', version: '5.1.1.RELEASE'
+    compile group: 'org.springframework.integration', name: 'spring-integration-core', version: '5.1.1.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.1.1.RELEASE'

@@ -3,6 +3,13 @@ package com.pos.config
 import com.pos.domain.EntryCreationDto
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.integration.dsl.IntegrationFlow
+import org.springframework.integration.dsl.IntegrationFlows
+import org.springframework.integration.ip.udp.UnicastReceivingChannelAdapter
+import org.springframework.integration.ip.udp.UnicastSendingMessageHandler
+import org.springframework.integration.support.MessageBuilder
+import org.springframework.messaging.Message
+import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import java.util.concurrent.ConcurrentHashMap
 
@@ -20,8 +27,29 @@ class ProxyConfiguration {
 
 
     @Bean
-    fun restTemplate(): RestTemplate {
-        return RestTemplate()
+    fun restTemplate() = RestTemplate()
+
+    @Bean
+    fun processUniCastUdpMessage(): IntegrationFlow {
+        return IntegrationFlows
+            .from(UnicastReceivingChannelAdapter(11111))
+            .handle("UDPServer", "handleMessage")
+            .get()
     }
 
+
+}
+
+@Service
+class UDPServer {
+    //Receive
+    fun handleMessage(message: Message<Any>) {
+        val data = String(message.payload as ByteArray)
+        print(data)
+    }
+
+    //Send
+    fun send(payload: String) {
+        UnicastSendingMessageHandler("localhost", 11111).handleMessage(MessageBuilder.withPayload(payload).build())
+    }
 }
