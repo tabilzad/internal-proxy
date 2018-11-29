@@ -1,6 +1,7 @@
 package com.pos.config
 
 import com.pos.domain.EntryCreationDto
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.integration.dsl.IntegrationFlow
@@ -29,10 +30,11 @@ class ProxyConfiguration {
     @Bean
     fun restTemplate() = RestTemplate()
 
+
     @Bean
-    fun processUniCastUdpMessage(): IntegrationFlow {
+    fun processUniCastUdpMessage(@Value("udpServer.port") port: Int): IntegrationFlow {
         return IntegrationFlows
-            .from(UnicastReceivingChannelAdapter(11111))
+            .from(UnicastReceivingChannelAdapter(port))
             .handle("UDPServer", "handleMessage")
             .get()
     }
@@ -49,7 +51,7 @@ class UDPServer {
     }
 
     //Send
-    fun send(payload: String) {
-        UnicastSendingMessageHandler("localhost", 11111).handleMessage(MessageBuilder.withPayload(payload).build())
+    fun send(host:String, port: Int, payload: String) {
+        UnicastSendingMessageHandler(host, port).handleMessage(MessageBuilder.withPayload(payload).build())
     }
 }

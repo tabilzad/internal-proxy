@@ -1,6 +1,9 @@
 server:
   port: 8090
 
+udpServer:
+  port: 4000
+
 application:
   title: ${name}
   version: ${version}
