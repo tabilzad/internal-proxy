@@ -4,6 +4,7 @@ import com.pos.domain.EntryCreationDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.integration.dsl.IntegrationFlow
 import org.springframework.integration.dsl.IntegrationFlows
 import org.springframework.integration.ip.udp.UnicastReceivingChannelAdapter
@@ -20,10 +21,10 @@ class ProxyConfiguration {
 
     @Bean("cache")
     fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
-        put("prime", EntryCreationDto("Prime", "http://google.com", "<RESPONSE>1", true))
-        put("other_service", EntryCreationDto("OtherService", "http://google.com/2", "<RESPONSE>2", false))
-        put("other_service2", EntryCreationDto("OtherService2", "http://google.com/2", "<RESPONSE>2", false))
-        put("other_service3", EntryCreationDto("OtherService3", "http://google.com/2", "<RESPONSE>2", false))
+        put("service1", EntryCreationDto("service1", "http://google.com", "<RESPONSE>1", true))
+        put("service2", EntryCreationDto("service2", "http://google.com", "<RESPONSE>2", false))
+        put("service3", EntryCreationDto("service3", "http://google.com", "<RESPONSE>3", true, status = HttpStatus.GATEWAY_TIMEOUT))
+        put("service4", EntryCreationDto("service4", "http://google.com", "<RESPONSE>4", false))
     }
 
 

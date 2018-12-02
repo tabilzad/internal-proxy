@@ -3,6 +3,8 @@
 > With Internal Proxy, you can accelerate the development of your API. Developer would be able to start implementing code before the real API is available.
 > *Internal Proxy* server can be deployed to cloud or ran locally where it will either be responding with mocked responses or forwarding calls to the real API route.
 
+![](header.JPG)
+
 # What is supported
 
  - Forwarding or Mocking GET/POST Requests
@@ -10,7 +12,7 @@
 
 # Building
 
-To build use `:bootRun` gradle task. Building with InteliJ will not run the buildInfo task so versioning will not work.
+To build use `:bootRun` gradle task. Building with InteliJ will not run the buildInfo task so versioning will not work, but the app would run fine.
 
 # Contributions
 
@@ -20,4 +22,4 @@ Make sure you let me know if you intend to work on something. Also, check out th
 
 # License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
