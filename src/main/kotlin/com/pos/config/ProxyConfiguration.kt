@@ -32,7 +32,7 @@ class ProxyConfiguration {
 
 
     @Bean
-    fun processUniCastUdpMessage(@Value("udpServer.port") port: Int): IntegrationFlow {
+    fun processUniCastUdpMessage(@Value("\${udpServer.port}") port: Int): IntegrationFlow {
         return IntegrationFlows
             .from(UnicastReceivingChannelAdapter(port))
             .handle("UDPServer", "handleMessage")
