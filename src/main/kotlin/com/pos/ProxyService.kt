@@ -24,12 +24,13 @@ class ProxyService(
 
     fun forwardOrMockGet(
         exchage: ProxyExchange<Any>,
-        serviceName: String
+        serviceName: String,
+        extraParams: String?
     ): ResponseEntity<*> {
         return cache[serviceName]?.let {
             when (it.mocked) {
                 true -> ResponseEntity.status(it.status).body(it.mock)
-                false -> exchage.uri(it.realUrl).get()
+                false -> exchage.uri(it.realUrl+"/"+extraParams).get()
             }
         } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
     }
