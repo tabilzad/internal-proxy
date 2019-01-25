@@ -12,9 +12,9 @@ import java.util.concurrent.ConcurrentHashMap
 class ProxyController(
     val router: ProxyService
 ) {
-    @GetMapping("/call/{name}")
+    @GetMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
     @Throws(Exception::class)
-    fun proxyGet(proxy: ProxyExchange<Any>, @PathVariable name: String): ResponseEntity<*> {
+    fun proxyGet(proxy: ProxyExchange<Any>, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
         return router.forwardOrMockGet(proxy, name.toLowerCase())
     }
 
