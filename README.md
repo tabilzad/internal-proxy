@@ -1,10 +1,10 @@
 
-# Internal Proxy
+# Internal Proxy Mock Server
 > This proxy server would significantly accelerate the development and implementation of new features related to internal/external API's that are either not ready or unavailable.
 >  Internal Proxy would also help simulate the behavior of API calls in order to test various scenarios and conditions without having to re-deploy the app.
 > The server can be deployed to cloud or ran locally where it will either be responding with mocked responses or forwarding calls to the real API route.
 
-![](header.JPG)
+![](header.png)
 
 # Features
 
