@@ -6,6 +6,7 @@ import org.springframework.cloud.gateway.mvc.ProxyExchange
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.concurrent.ConcurrentHashMap
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/proxy")
@@ -14,8 +15,8 @@ class ProxyController(
 ) {
     @GetMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
     @Throws(Exception::class)
-    fun proxyGet(proxy: ProxyExchange<Any>, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
-        return router.forwardOrMockGet(proxy, name.toLowerCase(), extra)
+    fun proxyGet(request: HttpServletRequest, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
+        return router.forwardOrMockGet(request, name.toLowerCase())
     }
 
     @GetMapping("/show")
@@ -23,8 +24,8 @@ class ProxyController(
 
     @PostMapping("/call/{name}")
     @Throws(Exception::class)
-    fun proxPost(proxy: ProxyExchange<Any>, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
-        return router.forwardOrMockPost(proxy, name.toLowerCase(), body)
+    fun proxPost(request: HttpServletRequest, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
+        return router.forwardOrMockPost(request, name.toLowerCase(), body)
     }
 
     @PostMapping("/configure/{serviceName}")
