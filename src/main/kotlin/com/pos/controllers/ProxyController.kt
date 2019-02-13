@@ -16,7 +16,7 @@ class ProxyController(
     @GetMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
     @Throws(Exception::class)
     fun proxyGet(request: HttpServletRequest, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
-        return router.forwardOrMockGet(request, name.toLowerCase())
+        return router.forwardOrMockGet(request, name.toLowerCase(), extra?:"")
     }
 
     @GetMapping("/show")

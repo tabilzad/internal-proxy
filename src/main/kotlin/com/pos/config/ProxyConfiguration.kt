@@ -31,15 +31,12 @@ class ProxyConfiguration {
     @Bean
     fun restTemplate() = RestTemplate()
 
-
     @Bean
     fun processUniCastUdpMessage(@Value("\${udpServer.port}") port: Int): IntegrationFlow {
         return IntegrationFlows
             .from(UnicastReceivingChannelAdapter(port))
-            .handle("UDPServer", "handleMessage")
-            .get()
+            .handle("UDPServer", "handleMessage")            .get()
     }
-
 
 }
 

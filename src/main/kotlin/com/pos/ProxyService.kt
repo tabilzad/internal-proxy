@@ -22,7 +22,7 @@ class ProxyService(
                 false -> template.exchange(
                     it.realUrl + rawRequest.buildParams(),
                     HttpMethod.POST,
-                    HttpEntity<Any>(rawRequest.buildHeaders()),
+                    HttpEntity<Any>(body, rawRequest.buildHeaders()),
                     String::class.java
                 )
             }
@@ -31,17 +31,24 @@ class ProxyService(
 
     fun forwardOrMockGet(
         rawRequest: HttpServletRequest,
-        serviceName: String
+        serviceName: String,
+        extra: String
     ): ResponseEntity<*> {
 
         val headers = rawRequest.buildHeaders()
         val params = rawRequest.buildParams()
 
+        val additional = when {
+            extra.isBlank() -> ""
+            else-> "/$extra"
+        }
+
+
         return cache[serviceName]?.let {
             when (it.mocked) {
                 true -> ResponseEntity.status(it.status).body(it.mock)
                 false -> template.exchange(
-                    it.realUrl + params,
+                    it.realUrl + params + additional,
                     HttpMethod.GET,
                     HttpEntity<Any>(headers),
                     String::class.java
