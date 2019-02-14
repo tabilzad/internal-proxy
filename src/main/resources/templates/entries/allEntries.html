@@ -33,6 +33,8 @@ table td {
         <a class="btn btn-primary" href="#" th:href="@{/edit}" th:classappend="${entries.empty} ? 'disabled' : ''"> Edit
             Entries </a>
         <a class="btn btn-warning" href="#" th:href="@{/clear}"> Clear All </a>
+        <a class="btn btn-info" href="#" th:href="@{/upload}"> Import Profile </a>
+        <a class="btn btn-danger" href="#" th:href="@{/export}"> Export Profile </a>
     </ul>
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-verison justify-content-end" style="float:right !important">

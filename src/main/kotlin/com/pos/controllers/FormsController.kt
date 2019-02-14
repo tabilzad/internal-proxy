@@ -1,14 +1,25 @@
 package com.pos.controllers
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.pos.ProxyService
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
+import org.springframework.core.io.FileSystemResource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.ResponseEntity
 import org.springframework.ui.Model
 import java.util.concurrent.ConcurrentHashMap
 import org.springframework.stereotype.Controller
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.multipart.MultipartFile
+import java.io.File
+import java.time.LocalDate
+
 
 @Controller
 class FormsController(
@@ -84,6 +95,39 @@ class FormsController(
     fun logingError(@RequestParam(value = "error", required = false) error: Boolean, model: Model): String {
         if (error) model.addAttribute("loginError", true)
         return "login"
+    }
+
+    @GetMapping("/upload")
+    fun import(model: Model): String {
+        return "entries/upload"
+    }
+
+
+    @GetMapping("/export")
+    @ResponseBody
+    fun export(model: Model): ResponseEntity<FileSystemResource> {
+        val down = FileSystemResource(File("ip_profile_${LocalDate.now()}").apply {
+            writeText(jacksonObjectMapper().writeValueAsString(cache.values))
+        }.also { it.deleteOnExit() })
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=${down.filename}")
+            .body(down)
+    }
+
+    @PostMapping("/uploadFile")
+    fun submit(@RequestParam("file") file: MultipartFile, model: ModelMap): String {
+        model.addAttribute("file", file)
+        val mapper = jacksonObjectMapper()
+        val newProfile = mapper.readValue<List<EntryCreationDto>>(
+            file.bytes,
+            mapper.typeFactory.constructCollectionType(List::class.java, EntryCreationDto::class.java)
+        )
+        cache.clear()
+        newProfile.forEach {
+            cache[it.name] = it
+        }
+        return "redirect:/all"
     }
 
 

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cloud.gateway.mvc.ProxyExchange
 import org.springframework.http.*
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import java.util.concurrent.ConcurrentHashMap
 import javax.servlet.http.HttpServletRequest
@@ -19,12 +20,16 @@ class ProxyService(
         return cache[serviceName]?.let { entry ->
             when (entry.mocked) {
                 true -> ResponseEntity.status(entry.status).body(entry.mock)
-                false -> template.exchange(
-                    entry.realUrl + rawRequest.buildParams(),
-                    HttpMethod.POST,
-                    HttpEntity<Any>(body, rawRequest.buildHeaders()),
-                    String::class.java
-                )
+                false -> try {
+                    template.exchange(
+                        entry.realUrl + rawRequest.buildParams(),
+                        HttpMethod.POST,
+                        HttpEntity<Any>(body, rawRequest.buildHeaders()),
+                        String::class.java
+                    )
+                } catch (ex: HttpClientErrorException) {
+                    ResponseEntity.status(ex.rawStatusCode).body(ex.responseBodyAsString)
+                }
             }.also { entry.callCount++ }
         } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
     }
@@ -46,12 +51,16 @@ class ProxyService(
         return cache[serviceName]?.let { entry ->
             when (entry.mocked) {
                 true -> ResponseEntity.status(entry.status).body(entry.mock)
-                false -> template.exchange(
-                    entry.realUrl + params + additional,
-                    HttpMethod.GET,
-                    HttpEntity<Any>(headers),
-                    String::class.java
-                )
+                false -> try {
+                    template.exchange(
+                        entry.realUrl + params + additional,
+                        HttpMethod.GET,
+                        HttpEntity<Any>(headers),
+                        String::class.java
+                    )
+                } catch (ex: HttpClientErrorException) {
+                    ResponseEntity.status(ex.rawStatusCode).body(ex.responseBodyAsString)
+                }
             }.also { entry.callCount++ }
         } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
     }
