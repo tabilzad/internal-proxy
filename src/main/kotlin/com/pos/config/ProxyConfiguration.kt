@@ -21,7 +21,7 @@ class ProxyConfiguration {
 
     @Bean("cache")
     fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
-        put("service1", EntryCreationDto("service1", "http://google.com", "<RESPONSE>1", true))
+        put("service1", EntryCreationDto("service1", "http://google.com", "<RESPONSE>1", true, HttpStatus.OK, 324))
         put("service2", EntryCreationDto("service2", "http://google.com", "<RESPONSE>2", false))
         put("service3", EntryCreationDto("service3", "http://google.com", "<RESPONSE>3", true, status = HttpStatus.GATEWAY_TIMEOUT))
         put("service4", EntryCreationDto("service4", "http://google.com", "<RESPONSE>4", false))
@@ -35,7 +35,7 @@ class ProxyConfiguration {
     fun processUniCastUdpMessage(@Value("\${udpServer.port}") port: Int): IntegrationFlow {
         return IntegrationFlows
             .from(UnicastReceivingChannelAdapter(port))
-            .handle("UDPServer", "handleMessage")            .get()
+            .handle("UDPServer", "handleMessage").get()
     }
 
 }
@@ -49,7 +49,7 @@ class UDPServer {
     }
 
     //Send
-    fun send(host:String, port: Int, payload: String) {
+    fun send(host: String, port: Int, payload: String) {
         UnicastSendingMessageHandler(host, port).handleMessage(MessageBuilder.withPayload(payload).build())
     }
 }

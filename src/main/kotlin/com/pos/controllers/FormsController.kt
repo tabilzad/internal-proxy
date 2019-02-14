@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
-
-
-
-
-
 @Controller
 class FormsController(
     val router: ProxyService,
@@ -69,9 +64,13 @@ class FormsController(
 
     @PostMapping("/replace")
     fun replace(@ModelAttribute wrapper: TempDto, model: Model): String {
+        val counts = cache.map { it.key to it.value.callCount }
         cache.clear()
-        wrapper.temp.forEach { value -> cache[value.name] = value }
-        model.addAttribute("wrapper", wrapper)
+        wrapper.temp.forEach { value ->
+            cache[value.name] = value.copy(callCount = counts.find { it.first == value.name }?.second ?: 0)
+        }
+
+        model.addAttribute("wrapper", wrapper.copy(temp = wrapper.temp.sortedBy { it.name }))
         return "redirect:/all"
     }
 
@@ -82,8 +81,8 @@ class FormsController(
     }
 
     @GetMapping("/login")
-    fun logingError(@RequestParam(value = "error", required = false) error:Boolean, model: Model): String {
-        if(error) model.addAttribute("loginError", true)
+    fun logingError(@RequestParam(value = "error", required = false) error: Boolean, model: Model): String {
+        if (error) model.addAttribute("loginError", true)
         return "login"
     }
 

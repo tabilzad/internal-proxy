@@ -55,6 +55,7 @@ table td {
                 <th> Route</th>
                 <th> MockResponse</th>
                 <th> Status</th>
+                <th> CallCount</th>
                 <th> ProxyUrl</th>
                 </tr>
                 </thead>
@@ -84,6 +85,9 @@ table td {
                     </td>
                     <td>
                         <span th:text="${entries[__${entry.key}__].status}"> Status </span>
+                    </td>
+                    <td>
+                        <span th:text="${entries[__${entry.key}__].callCount}"> CallCount </span>
                     </td>
 
                     <div class="modal right fade" th:id="${'exampleModal' + entry.key}" tabindex="-1" role="dialog"

@@ -7,5 +7,6 @@ data class EntryCreationDto(
     var realUrl: String = "",
     var mock: String = "",
     var mocked: Boolean = false,
-    var status: HttpStatus = HttpStatus.OK
+    var status: HttpStatus = HttpStatus.OK,
+    var callCount: Long = 0
 )
