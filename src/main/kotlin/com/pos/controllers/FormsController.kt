@@ -114,13 +114,13 @@ class FormsController(
     @PostMapping("/uploadFile")
     fun submit(@RequestParam("file") file: MultipartFile, model: ModelMap): String {
         model.addAttribute("file", file)
-        val mapper = jacksonObjectMapper()
-        val newProfile = mapper.readValue<List<EntryCreationDto>>(
-            file.bytes,
-            mapper.typeFactory.constructCollectionType(List::class.java, EntryCreationDto::class.java)
-        )
         cache.clear()
-        newProfile.forEach {
+        jacksonObjectMapper().run {
+            readValue<List<EntryCreationDto>>(
+                file.bytes,
+                typeFactory.constructCollectionType(List::class.java, EntryCreationDto::class.java)
+            )
+        }.forEach {
             cache[it.name] = it
         }
         return "redirect:/all"

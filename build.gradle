@@ -48,7 +48,7 @@ repositories {
 springBoot {
     buildInfo()
 }
-version = "0.2.0" + getVersionNameExtension()
+version = "0.3.1" + getVersionNameExtension()
 
 def getVersionNameExtension() {
     def versionPropsFile = file('version')
