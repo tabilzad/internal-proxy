@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,18 +34,20 @@
     <div class="row">
         <div class="col-lg-auto">
             <form th:action="@{/uploadFile}"
-                       enctype="multipart/form-data"
-                       method="POST">
+                  enctype="multipart/form-data"
+                  method="POST">
                 <table>
                     <tr>
-                        <td><form path="file">Select a file to upload</form></td>
+                        <td>
+                            <form path="file">Select a file to upload</form>
+                        </td>
                         <td><input type="file" class="btn btn-primary" name="file"/></td>
-                    </tr>
-                    <tr>
                         <td>
                             <input type="submit" class="btn btn-success" value="Apply Profile">
                         </td>
                     </tr>
+
+
                 </table>
             </form>
         </div>
