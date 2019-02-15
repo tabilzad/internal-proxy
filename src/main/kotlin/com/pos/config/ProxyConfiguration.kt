@@ -1,5 +1,6 @@
 package com.pos.config
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.pos.domain.EntryCreationDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -27,9 +28,11 @@ class ProxyConfiguration {
         put("service4", EntryCreationDto("service4", "http://google.com", "<RESPONSE>4", false))
     }
 
-
     @Bean
     fun restTemplate() = RestTemplate()
+
+    @Bean
+    fun mapper() = jacksonObjectMapper()
 
     @Bean
     fun processUniCastUdpMessage(@Value("\${udpServer.port}") port: Int): IntegrationFlow {

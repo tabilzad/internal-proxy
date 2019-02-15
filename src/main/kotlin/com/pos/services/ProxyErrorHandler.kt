@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClientResponseException
 
 @Service
-class ProxyErrorHandler {
+class ProxyErrorHandler(val logger: LoggingService) {
     operator fun invoke(call: () -> ResponseEntity<*>): ResponseEntity<*> {
         return try {
-            call()
+            call().also {
+                logger.log("Forward Success with status ${it.statusCode}")
+            }
         } catch (ex: RestClientResponseException) {
+            logger.logError("Forward Failure due to ${ex.rawStatusCode} and ${ex.responseBodyAsString}")
             ResponseEntity
                 .status(ex.rawStatusCode)
                 .contentType(ex.responseHeaders?.contentType ?: MediaType.TEXT_PLAIN)

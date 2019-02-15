@@ -87,6 +87,6 @@ class ProxyService(
 
     fun HttpServletRequest.buildParams() = parameterMap.map { (key, value) ->
         key to value.first()
-    }.joinToString { (key, value) -> "?$key=$value" }
+    }.joinToString("") { (key, value) -> "?$key=$value" }
 }
 
