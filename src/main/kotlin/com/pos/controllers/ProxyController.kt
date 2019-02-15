@@ -1,8 +1,7 @@
 package com.pos.controllers
 
-import com.pos.ProxyService
 import com.pos.domain.EntryCreationDto
-import org.springframework.cloud.gateway.mvc.ProxyExchange
+import com.pos.services.ProxyService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.concurrent.ConcurrentHashMap

@@ -1,24 +1,20 @@
 package com.pos.controllers
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.pos.ProxyService
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
+import com.pos.services.ProxyService
 import org.springframework.core.io.FileSystemResource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
-import org.springframework.ui.Model
-import java.util.concurrent.ConcurrentHashMap
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.time.LocalDate
+import java.util.concurrent.ConcurrentHashMap
 
 
 @Controller
