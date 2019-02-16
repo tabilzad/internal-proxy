@@ -22,10 +22,10 @@ class ProxyConfiguration {
 
     @Bean("cache")
     fun cache() = ConcurrentHashMap<String, EntryCreationDto>().apply {
-        put("service1", EntryCreationDto("service1", "http://google.com", "<RESPONSE>1", true, HttpStatus.OK, 324))
-        put("service2", EntryCreationDto("service2", "http://google.com", "<RESPONSE>2", false))
-        put("service3", EntryCreationDto("service3", "http://google.com", "<RESPONSE>3", true, status = HttpStatus.GATEWAY_TIMEOUT))
-        put("service4", EntryCreationDto("service4", "http://google.com", "<RESPONSE>4", false))
+        put("service1", EntryCreationDto("service1", "http://real_api.com/search", "<RESPONSE>1", true, HttpStatus.OK, 1))
+        put("service2", EntryCreationDto("service2", "https://realApi.com/getMember", "<RESPONSE>2", false, HttpStatus.ACCEPTED, 4))
+        put("service3", EntryCreationDto("service3", "https://api.com/page", "<RESPONSE>3", true, HttpStatus.GATEWAY_TIMEOUT, 6))
+        put("service4", EntryCreationDto("service4", "http://someapi.com/resource", "<RESPONSE>4", false, HttpStatus.NOT_FOUND, 2))
     }
 
     @Bean
