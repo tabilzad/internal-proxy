@@ -10,10 +10,11 @@
 
  - Forwarding or Mocking GET/POST Requests
  - HTTP Status Mocking
+ - Importing and Exporting Profiles
 
 # Building
 
-To build use `:bootRun` gradle task. Building with InteliJ will not run the buildInfo task so versioning will not work, but the app would run fine.
+To build use `:bootRun` gradle task. Building with InteliJ IDEA will not run the buildInfo task so versioning will not work, but the app would run fine.
 
 # Contributions
 
