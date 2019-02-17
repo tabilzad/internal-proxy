@@ -28,7 +28,7 @@
 
 </style>
 <nav style="margin-bottom: 40px;" class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <ul class="navbar-nav" style="float:left">
+    <ul class="navbar-nav">
         <h4 style="margin-top:10px" class="navbar-brand">INTERNAL PROXY</h4>
         <a class="btn btn-success" href="#" th:href="@{/create}">
             <span class="fa fa-plus-circle" aria-hidden="true"></span> Add </a>
@@ -61,7 +61,7 @@
         </ul>
     </div>
 </nav>
-<div class="row justify-content-center" >
+<div class="row justify-content-center">
     <div class="col-md-auto">
         <div class="card">
             <div class="card-body">
@@ -90,14 +90,14 @@
 
                     <tr th:each="entry : ${entries}">
                         <td>
-                        <span th:if="${entries[__${entry.key}__].mocked}" style="color:green">
-                             <i class="fa fa-cog fa-spin" style="font-size:24px"> </i>
-                            Mocked
-                        </span>
-                            <span th:if="${!entries[__${entry.key}__].mocked}" style="color:red">
-                             <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
-                            Forwarding
-                        </span>
+                        <b th:if="${entries[__${entry.key}__].mocked}" style="color:green">
+                             <i class="fa fa-cog fa-spin" style="font-size:22px">   </i>
+                            &nbsp;Mocked
+                        </b>
+                            <b th:if="${!entries[__${entry.key}__].mocked}" style="color:red">
+                             <i class="fa fa-refresh fa-spin" style="font-size:22px">  </i>
+                                &nbsp;Forwarding
+                        </b>
                         </td>
 
                         <td><span th:text="${entry.key}"> ServiceName </span></td>
