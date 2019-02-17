@@ -1,0 +1,17 @@
+.form-inline {
+  display: block !important;
+}
+
+.dataTables_filter {
+   float: right !important;
+}
+
+body {
+    font-weight: 400 !important;
+ }
+
+
+
+ .dataTables_wrapper {
+
+ }
