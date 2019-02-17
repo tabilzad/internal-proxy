@@ -12,22 +12,32 @@
 </head>
 <body>
 <div class="container">
-    <div  th:if="${loginError}" class="alert alert-danger">
+    <div th:if="${loginError}" class="alert alert-danger">
         <strong>Danger!</strong> Wrong user or password
     </div>
-    <form class="form-signin" method="post" action="/login" >
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
-                   autofocus>
-        </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+    <div class="row justify-content-center" style="margin-right: 0px">
+        <div class="col-md-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Please sign in</h2>
+                    <form class="form-signin" method="post" action="/login">
+                        <p>
+                            <label for="username" class="sr-only">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                                   required
+                                   autofocus>
+                        </p>
+                        <p>
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Password" required>
+                        </p>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
