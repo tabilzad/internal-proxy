@@ -12,6 +12,7 @@ body {
 
 
 
- .dataTables_wrapper {
-
+ .pagination {
+ 	float: right !important;
+ 	margin: 0;
  }
