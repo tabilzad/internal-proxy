@@ -1,5 +1,6 @@
 package com.pos.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
@@ -7,6 +8,7 @@ import com.pos.services.ProxyService
 import org.springframework.core.io.FileSystemResource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
+import org.springframework.integration.support.json.Jackson2JsonObjectMapper
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.ModelMap
@@ -20,7 +22,8 @@ import java.util.concurrent.ConcurrentHashMap
 @Controller
 class FormsController(
     val router: ProxyService,
-    val cache: ConcurrentHashMap<String, EntryCreationDto>
+    val cache: ConcurrentHashMap<String, EntryCreationDto>,
+    val mapper: ObjectMapper
 ) {
 
     @RequestMapping("/")
@@ -103,7 +106,7 @@ class FormsController(
     @ResponseBody
     fun export(model: Model): ResponseEntity<FileSystemResource> {
         val down = FileSystemResource(File("ip_profile_${LocalDate.now()}").apply {
-            writeText(jacksonObjectMapper().writeValueAsString(cache.values))
+            writeText(mapper.writeValueAsString(cache.values))
         }.also { it.deleteOnExit() })
 
         return ResponseEntity.ok()
@@ -115,7 +118,7 @@ class FormsController(
     fun submit(@RequestParam("file") file: MultipartFile, model: ModelMap): String {
         model.addAttribute("file", file)
         cache.clear()
-        jacksonObjectMapper().run {
+        mapper.run {
             readValue<List<EntryCreationDto>>(
                 file.bytes,
                 typeFactory.constructCollectionType(List::class.java, EntryCreationDto::class.java)
