@@ -24,11 +24,11 @@
 <body style="background-color:#ededed">
 <style>
     table th {
-        font-size: 24px;
+        font-size: 1.0rem;
     }
 
     table td {
-        font-size: 23px;
+        font-size: 0.95rem;
     }
 
 </style>
@@ -66,7 +66,7 @@
         </ul>
     </div>
 </nav>
-<div class="row justify-content-center" style="margin-right: 0px">
+<div class="row justify-content-center">
     <div class="col-md-auto">
         <div class="card">
             <div class="card-body">
@@ -79,13 +79,14 @@
                 </div>
                 <table id="sortable" class="table table-hover table-responsive mb-2">
                     <thead>
-                    <th class="th-lg"> isMocked</th>
-                    <th class="th-lg"> ServiceName</th>
-                    <th class="th-lg"> Route</th>
-                    <th class="th-lg"> MockResponse</th>
-                    <th class="th-lg"> Status</th>
-                    <th class="th-lg"> CallCount</th>
-                    <th class="th-lg"> ProxyUrl</th>
+                    <th > isMocked</th>
+                    <th> ServiceName</th>
+                    <th > Route</th>
+                    <th > MockResponse</th>
+                    <th > Status</th>
+                    <th > CallCount</th>
+                    <th > Delay</th>
+                    <th > ProxyUrl</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -118,6 +119,9 @@
                         </td>
                         <td>
                             <span th:text="${entries[__${entry.key}__].callCount}"> CallCount </span>
+                        </td>
+                        <td>
+                            <span th:text="${entries[__${entry.key}__].delay}"> Delay (millis) </span>
                         </td>
 
                         <div class="modal right fade" th:id="${'exampleModal' + entry.key}" tabindex="-1" role="dialog"

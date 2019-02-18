@@ -77,7 +77,7 @@ class FormsController(
             cache[value.name] = value.copy(callCount = counts.find { it.first == value.name }?.second ?: 0)
         }
 
-        model.addAttribute("wrapper", wrapper.copy(temp = wrapper.temp.sortedBy { it.name }))
+        model.addAttribute("wrapper", wrapper)
         return "redirect:/all"
     }
 

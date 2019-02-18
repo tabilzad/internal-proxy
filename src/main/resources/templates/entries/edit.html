@@ -50,6 +50,7 @@
                                 <th> Service Name</th>
                                 <th> Route</th>
                                 <th> Status</th>
+                                <th> Delay (millis)</th>
                                 <th> MockResponse</th>
                                 <th></th>
                             </tr>
@@ -75,6 +76,10 @@
                                         >
                                         </option>
                                     </select>
+                                </td>
+                                <td><input class="form-control form-control-lg"
+                                           th:field="*{temp[__${stat.index}__].delay}"
+                                           pattern="^(0|[1-9][0-9]*)$"/>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"

@@ -53,6 +53,7 @@
                                 <th> Service</th>
                                 <th> Route</th>
                                 <th> Status</th>
+                                <th> Delay (millis)</th>
                                 <th> MockResponse</th>
                             </tr>
                             </thead>
@@ -79,6 +80,11 @@
                                         >
                                         </option>
                                     </select>
+                                </td>
+                                <td><input class="form-control form-control-lg"
+                                           value="0"
+                                           th:field="*{{delay}}"
+                                           pattern="^(0|[1-9][0-9]*)$"/>
                                 </td>
                                 <!--<td><input th:placeholder="MockResponse " th:field="*{mock}" required/></td>-->
                                 <td>
@@ -118,8 +124,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </tr>
                             </tbody>
                         </table>

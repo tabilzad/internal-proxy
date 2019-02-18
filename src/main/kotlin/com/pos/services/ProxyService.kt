@@ -25,7 +25,9 @@ class ProxyService(
                         HttpMethod.POST,
                         HttpEntity<Any>(body, rawRequest.buildHeaders()),
                         String::class.java
-                    )
+                    ).also {
+                        Thread.sleep(entry.delay)
+                    }
                 }
 
             }.also { entry.callCount++ }
@@ -55,7 +57,9 @@ class ProxyService(
                         HttpMethod.GET,
                         HttpEntity<Any>(headers),
                         String::class.java
-                    )
+                    ).also {
+                        Thread.sleep(entry.delay)
+                    }
                 }
             }.also { entry.callCount++ }
         } ?: ResponseEntity.status(HttpStatus.NO_CONTENT).body("This Service Name is unknown: $serviceName")
