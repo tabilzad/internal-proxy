@@ -1,0 +1,151 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#rete {
+  height: 100%;
+}
+
+.node-editor {
+  background-size: 20px 20px;
+  background-color: #4b4b4b;
+  overflow: hidden;
+}
+.node-editor * {
+  box-sizing: border-box;
+}
+.node-editor .node {
+  background: rgba(51, 51, 51, 0.8);
+  box-shadow: 5px solid black;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  height: auto;
+  padding-bottom: 6px;
+  box-sizing: content-box;
+  box-shadow: 4px 5px 9px rgba(0, 0, 0, 0.5);
+  min-width: 160px;
+}
+.node-editor .node:hover {
+  background: rgba(61, 61, 61, 0.8);
+}
+.node-editor .node.selected {
+  background: #777777;
+  border-color: rgba(188, 188, 188, 0.9);
+}
+.node-editor .node.active {
+  border: 1px solid #ffd252;
+}
+.node-editor .node .title {
+  border-top: 1px solid #ccc;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 18px;
+  border-radius: 8px 8px 0 0;
+  padding: 8px;
+  overflow: hidden;
+}
+.node-editor .node .content {
+  display: table;
+  width: 100%;
+}
+.node-editor .node .content .col {
+  display: table-cell;
+  white-space: nowrap;
+}
+.node-editor .node .content .col:not(:last-child) {
+  padding-right: 20px;
+}
+.node-editor .node .socket {
+  display: inline-block;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 8px;
+  width: 16px;
+  height: 16px;
+  margin: 10px !important;
+  vertical-align: middle;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+.node-editor .node .socket.used {
+  background: white;
+}
+.node-editor .node .socket:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 3px;
+  left: 16px;
+  display: inline-block;
+  border-style: solid;
+  border-width: 4px 0 4px 2.6666666667px;
+  border-color: transparent transparent transparent white;
+}
+.node-editor .node .socket:hover {
+  border: 2px solid #777;
+  background-color: #818181;
+}
+.node-editor .node .input-title, .node-editor .node .output-title {
+  vertical-align: middle;
+  color: white;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 14px;
+  margin: 10px 0;
+  line-height: 16px;
+}
+.node-editor .node .input-control {
+  z-index: 1;
+  vertical-align: middle;
+  display: inline-block;
+}
+.node-editor .node .control {
+  width: 100%;
+  padding: 10px 18px;
+}
+.node-editor .connection path {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 2px;
+  pointer-events: none;
+}
+.node-editor .connection path.active {
+  stroke: #aaa;
+}
+.node-editor .node select, .node-editor .node input {
+  width: 60px;
+  background-color: transparent;
+  padding: 2px 6px;
+  border: 1px solid white;
+  font-size: 14px;
+  color: white;
+  border-radius: 0;
+}
+
+.item {
+  padding: 50px;
+  border-bottom: 1px solid #636363;
+  color: #fff;
+  background-color: #777777;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+}
+.item:first-child {
+  border-radius: 50x 50x 0 0;
+}
+.item:last-child {
+  border-radius: 0 0 50x 50x;
+}
+.item:hover {
+  background-color: #818181;
+}
+
+/*# sourceMappingURL=flow.css.map */

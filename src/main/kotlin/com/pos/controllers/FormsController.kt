@@ -37,6 +37,10 @@ class FormsController(
         return "entries/allEntries"
     }
 
+    @GetMapping("/smoke")
+    fun smoke(model: Model): String {
+        return "smoke"
+    }
 
     @GetMapping("/create")
     fun showCreateForm(model: Model): String {
