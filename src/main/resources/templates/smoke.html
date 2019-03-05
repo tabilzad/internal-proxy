@@ -10,6 +10,9 @@
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/flow.css}"/>
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/ripple.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.15/css/mdb.min.css" rel="stylesheet">
     <!-- MDB core JavaScript -->
 
@@ -19,16 +22,8 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav" style="float:left">
         <h4 style="margin-top:10px" class="navbar-brand">INTERNAL PROXY</h4>
-        <a class="btn btn-success" href="#" th:href="@{/create}">
-            <span class="fa fa-plus-circle" aria-hidden="true"></span> Add </a>
-        <a class="btn btn-primary" href="#" th:href="@{/edit}">
-            <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Edit </a>
-        <a class="btn btn-warning" href="#" th:href="@{/clear}">
-            <span class="fa fa-recycle" aria-hidden="true"></span> Clear </a>
-        <a class="btn btn-info" href="#" th:href="@{/upload}">
-            <span class="fa fa-upload" aria-hidden="true"></span> Import </a>
-        <a class="btn btn-danger" href="#" th:href="@{/export}">
-            <span class="fa fa-download" aria-hidden="true"></span> Export </a>
+        <a class="btn btn-info" href="#" th:href="@{/all}"> Back to Proxy </a>
+        <a id="clicker" class="btn btn-primary clicker"> Play </a>
     </ul>
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="nav navbar-nav navbar-right">
@@ -50,30 +45,10 @@
         </ul>
     </div>
 </nav>
-<template id="customNode">
-    <div class="node" :class="[selected(), node.name] | kebab">
-        <div class="title">{{node.name}}</div>
-        <div class="content">
-            <div class="col" v-if="node.controls.size&gt;0 || node.inputs.size&gt;0">
-                <div class="input" v-for="input in inputs()" :key="input.key" style="text-align: left">
-                    <Socket v-socket:input="input" type="input" :socket="input.socket" :used="() => input.connections.length"></Socket>
-                    <div class="input-title" v-show="!input.showControl()">{{input.name}}</div>
-                    <div class="input-control" v-show="input.showControl()" v-control="input.control"></div>
-                </div>
-                <div class="control" v-for="control in controls()" v-control="control"></div>
-            </div>
-            <div class="col">
-                <div class="output" v-for="output in outputs()" :key="output.key">
-                    <div class="output-title">{{output.name}}</div>
-                    <Socket v-socket:output="output" type="output" :socket="output.socket" :used="() => output.connections.length"></Socket>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
 <div id="rete" class="node-editor"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/alight@0.14.0/alight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rete@1.0.0-alpha.8/build/rete.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rete-alight-render-plugin@0.1.5/build/alight-render-plugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.1.2/build/connection-plugin.min.js"></script>
@@ -83,8 +58,19 @@
 <script th:src="@{/scripts/components.js}"></script>
 <script th:src="@{/scripts/index.js}"></script>
 
+<script>
+
+$('.clicker').click(function(){
 
 
+$('#node.1').toggle(function () {
+   $('.node').css({"animation": "ripple 0.7s linear infinite"})
+});
+
+});
+
+
+</script>
 </body>
 
 

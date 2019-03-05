@@ -1,3 +1,15 @@
+.node-editor .node {
+  animation: ripple 0.7s linear infinite;
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(147, 43, 43, 0.3), 0 0 0 1em rgba(147, 43, 43, 0.3), 0 0 0 3em rgba(147, 43, 43, 0.3), 0 0 0 5em rgba(147, 43, 43, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 1em rgba(147, 43, 43, 0.3), 0 0 0 3em rgba(147, 43, 43, 0.3), 0 0 0 5em rgba(147, 43, 43, 0.3), 0 0 0 8em rgba(147, 43, 43, 0);
+  }
+}
 html, body {
   height: 100%;
   margin: 0;
@@ -90,7 +102,7 @@ html, body {
 }
 .node-editor .node .socket:hover {
   border: 2px solid #777;
-  background-color: #818181;
+  border-color: #6e88ff;
 }
 .node-editor .node .input-title, .node-editor .node .output-title {
   vertical-align: middle;
@@ -113,7 +125,7 @@ html, body {
 .node-editor .connection path {
   fill: none;
   stroke: #eee;
-  stroke-width: 2px;
+  stroke-width: 4px;
   pointer-events: none;
 }
 .node-editor .connection path.active {

@@ -1,0 +1,22 @@
+
+$color: rgb(random(255), random(255), random(255));
+
+%circle-ripple{
+  animation: ripple 0.7s linear infinite;
+}
+
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba($color, 0.3),
+                0 0 0 1em rgba($color, 0.3),
+                0 0 0 3em rgba($color, 0.3),
+                0 0 0 5em rgba($color, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 1em rgba($color, 0.3),
+                0 0 0 3em rgba($color, 0.3),
+                0 0 0 5em rgba($color, 0.3),
+                0 0 0 8em rgba($color, 0);
+  }
+}
