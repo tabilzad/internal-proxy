@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest
 class ProxyController(
     val router: ProxyService
 ) {
-    @GetMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
+    @GetMapping(value = ["/call/{name}", "/call/{name}/**"])
     @Throws(Exception::class)
     fun proxyGet(request: HttpServletRequest, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
         return router.forwardOrMockGet(request, name.toLowerCase(), extra ?: "")
@@ -21,7 +21,7 @@ class ProxyController(
     @GetMapping("/show")
     fun show(): ConcurrentHashMap<String, EntryCreationDto> = router.show()
 
-    @PostMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
+    @PostMapping(value = ["/call/{name}", "/call/{name}/**"])
     @Throws(Exception::class)
     fun proxPost(request: HttpServletRequest, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
         return router.forwardOrMockPost(request, name.toLowerCase(), body)
