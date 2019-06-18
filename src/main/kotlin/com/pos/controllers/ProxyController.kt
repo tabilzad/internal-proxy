@@ -15,13 +15,13 @@ class ProxyController(
     @GetMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
     @Throws(Exception::class)
     fun proxyGet(request: HttpServletRequest, @PathVariable name: String, @PathVariable extra: String? = ""): ResponseEntity<*> {
-        return router.forwardOrMockGet(request, name.toLowerCase(), extra?:"")
+        return router.forwardOrMockGet(request, name.toLowerCase(), extra ?: "")
     }
 
     @GetMapping("/show")
     fun show(): ConcurrentHashMap<String, EntryCreationDto> = router.show()
 
-    @PostMapping("/call/{name}")
+    @PostMapping(value = ["/call/{name}", "/call/{name}/{extra}"])
     @Throws(Exception::class)
     fun proxPost(request: HttpServletRequest, @PathVariable name: String, @RequestBody body: String): ResponseEntity<*> {
         return router.forwardOrMockPost(request, name.toLowerCase(), body)
