@@ -11,3 +11,10 @@ data class EntryCreationDto(
     var callCount: Long = 0,
     var delay: Long = 0
 )
+
+data class ConnectionEntry(
+    var ip: String = "",
+    var port: Int = 8090
+)
+
+

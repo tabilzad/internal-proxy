@@ -2,8 +2,10 @@ package com.pos.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.pos.domain.ConnectionEntry
 import com.pos.domain.EntryCreationDto
 import com.pos.domain.TempDto
+import com.pos.services.ConnectionCheckingService
 import com.pos.services.ProxyService
 import org.springframework.core.io.FileSystemResource
 import org.springframework.http.HttpHeaders
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.time.LocalDate
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -23,7 +26,8 @@ import java.util.concurrent.ConcurrentHashMap
 class FormsController(
     val router: ProxyService,
     val cache: ConcurrentHashMap<String, EntryCreationDto>,
-    val mapper: ObjectMapper
+    val mapper: ObjectMapper,
+    val checker: ConnectionCheckingService
 ) {
 
     @RequestMapping("/")
@@ -35,6 +39,21 @@ class FormsController(
     fun show(model: Model): String {
         model.addAttribute("entries", cache)
         return "entries/allEntries"
+    }
+
+
+
+    @RequestMapping("/check", method = [RequestMethod.POST, RequestMethod.GET])
+    fun check(@ModelAttribute form: ConnectionEntry, model: Model): String {
+
+        println("Now checking: $form")
+        model.addAttribute("wrapper", form)
+
+
+        model.addAttribute("result", checker.checkConnection(form))
+
+
+        return "connector"
     }
 
     @GetMapping("/smoke")
